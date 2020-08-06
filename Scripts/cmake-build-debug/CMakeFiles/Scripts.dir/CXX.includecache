@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/amber/parallelAligner/Scripts/main.cpp
+reader.h
+/home/amber/parallelAligner/Scripts/reader.h
+matrix.h
+/home/amber/parallelAligner/Scripts/matrix.h
+
+/home/amber/parallelAligner/Scripts/matrix.cpp
+matrix.h
+/home/amber/parallelAligner/Scripts/matrix.h
+
+/home/amber/parallelAligner/Scripts/matrix.h
+cstring
+-
+cstdio
+-
+iostream
+-
+vector
+-
+
+/home/amber/parallelAligner/Scripts/reader.cpp
+reader.h
+/home/amber/parallelAligner/Scripts/reader.h
+
+/home/amber/parallelAligner/Scripts/reader.h
+string
+-
+vector
+-
+iostream
+-
+stdio.h
+-
+fstream
+-
+sstream
+-
+
