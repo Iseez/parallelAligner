@@ -1,6 +1,6 @@
 #include "reader.h"
 int main(int argc, char const *argv[]) {
-  string file = "/home/iseez/Documents/Paralelo/alignment/example.fasta";
+  string file = "/home/iseez/Documents/Paralelo/alignment/Data/example.fasta";
   fasta objFasta(file);
   objFasta.length();
   objFasta.getSequence();
