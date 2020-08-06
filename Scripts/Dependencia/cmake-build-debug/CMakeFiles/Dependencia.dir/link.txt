@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Dependencia.dir/main.cpp.o CMakeFiles/Dependencia.dir/matrix.cpp.o  -o Dependencia 

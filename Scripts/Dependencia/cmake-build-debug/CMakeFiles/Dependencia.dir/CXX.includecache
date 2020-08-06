@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/amber/CLionProjects/Dependencia/main.cpp
+iostream
+-
+time.h
+-
+cmath
+-
+
+/home/amber/CLionProjects/Dependencia/matrix.cpp
+matrix.h
+/home/amber/CLionProjects/Dependencia/matrix.h
+
+/home/amber/CLionProjects/Dependencia/matrix.h
+cstring
+-
+cstdio
+-
+iostream
+-
+vector
+-
+

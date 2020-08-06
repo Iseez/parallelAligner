@@ -1,0 +1,3 @@
+/home/amber/CLionProjects/Dependencia/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/amber/CLionProjects/Dependencia/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/amber/CLionProjects/Dependencia/cmake-build-debug/CMakeFiles/Dependencia.dir
