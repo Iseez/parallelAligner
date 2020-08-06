@@ -13,11 +13,11 @@ public:
   fasta();
   fasta(string name);
   ~fasta();
-  void length();
+  double length();
   void getSequence();
+  vector<string>* sequence;
 private:
   string fileName;
-  int noSequences = 0;
-  vector<string>* sequence;
+  double noSequences = 0;
 };
-#endif //EIGENFACES_EIGENV_H
+#endif

@@ -6,14 +6,15 @@ fasta::fasta(string name){
 }
 fasta::~fasta(){
 }
-void fasta::length(){
-    int counter = 0;
+double fasta::length(){
+    double counter = 0;
     ifstream file(fileName.c_str());
     string data;
     while(getline(file,data,'>')){
         counter++;
     }
     noSequences =  counter;
+    return counter;
 }
 void fasta::getSequence(){
   ifstream file(fileName.c_str());
