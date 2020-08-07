@@ -1,10 +1,12 @@
 #include "reader.h"
 #include "matrix.h"
-
 int main(int argc, char const *argv[]) {
   string file = "/home/iseez/Documents/Paralelo/alignment/Data/example.fasta";
   fasta objFasta(file);
-  objFasta.length();
-  objFasta.getSequence();
+  double len = objFasta.length();
+  objFasta.getReads();
+  for(int i = 0;i<len;i++)
+    cout << objFasta.reads->at(i) << endl;
+  std::cin.get();
   return 0;
 }

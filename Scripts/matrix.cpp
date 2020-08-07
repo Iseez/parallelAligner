@@ -22,4 +22,3 @@ void veckm(std::string A,int k){
         }
         vec = vec2;
 }
-

@@ -13,21 +13,25 @@ double fasta::length(){
     while(getline(file,data,'>')){
         counter++;
     }
-    noSequences =  counter;
+    noReads =  counter;
     return counter;
 }
-void fasta::getSequence(){
+void fasta::getReads(){
+  reads = new vector<string>(noReads);
   ifstream file(fileName.c_str());
   stringstream buffer;
   buffer << file.rdbuf();
   string data,id,seq;
+  double indx = 0;
   while (getline(buffer, data)) {
     if(data.empty())
         continue;
-    if (data[0] == '>') {
+    if(data[0] == '>') {
       if(!id.empty())
-        sequence->push_back(seq);
+        //cout << seq<< endl;
+        reads->at(indx) = seq;
         id = data.substr(1);
+        indx++;
         seq.clear();
     }
     else {
@@ -35,5 +39,7 @@ void fasta::getSequence(){
     }
   }
   if(!id.empty())
-    sequence->push_back(seq);
+    reads->at(indx) = seq;
+    //cout << seq << endl;
+    //reads->push_back(seq);
 }

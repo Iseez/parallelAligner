@@ -14,10 +14,10 @@ public:
   fasta(string name);
   ~fasta();
   double length();
-  void getSequence();
-  vector<string>* sequence;
+  void getReads();
+  vector<string>* reads;
 private:
   string fileName;
-  double noSequences = 0;
+  double noReads = 0;
 };
 #endif
