@@ -1,7 +1,7 @@
 #include "reader.h"
 #include "matrix.h"
 int main(int argc, char const *argv[]) {
-  string file = "/home/iseez/Documents/Paralelo/alignment/Data/example.fasta";
+  string file = argv[1];//"/home/iseez/Documents/Paralelo/alignment/Data/example.fasta";
   fasta objFasta(file);
   double len = objFasta.length();
   objFasta.getReads();
