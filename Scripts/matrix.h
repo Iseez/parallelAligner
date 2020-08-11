@@ -17,6 +17,7 @@ public:
         matrix();
         ~matrix();
         void veckm(std::string,int k);
+        std::vector<std::string>* vec;
 };
 
 
