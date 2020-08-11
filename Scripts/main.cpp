@@ -8,9 +8,11 @@ int main(int argc, char const *argv[]) {
   for(int i = 0;i<len;i++)
     printf("%s\n", objFasta.reads->at(i).c_str());
   matrix objMatrix;
-  string a = "abcdef";
-  objMatrix.veckm(a,3);
-  for(int i = 0;i<3;i++)
+  string a = "ggtaagtcctctagtacaaacacccccaatattgtgatataattaaaattatattcatattctgttgccagaaaaaacacttttaggctatattagagccatcttctttgaagcgttgtc";
+  string b(begin(objFasta.reads->at(0)),end(objFasta.reads->at(0)));
+  printf("%d\n",b.size() );
+  objMatrix.veckm(b,5);
+  for(int i = 0;i<7;i++)
     printf("%s\n", objMatrix.vec->at(i).c_str());
   std::cin.get();
   return 0;
