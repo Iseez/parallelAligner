@@ -10,7 +10,8 @@ int main(int argc, char const *argv[]) {
   matrix objMatrix;
   string a = "abcdef";
   objMatrix.veckm(a,3);
-  
+  for(int i = 0;i<3;i++)
+    printf("%s\n", objMatrix.vec->at(i).c_str());
   std::cin.get();
   return 0;
 }
