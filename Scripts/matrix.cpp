@@ -8,17 +8,15 @@ matrix::matrix(){
 matrix::~matrix(){
 }
 
-std::vector<std::string>*vec;
+void matrix:: veckm(std::string A,int k){
 
-void veckm(std::string A,int k){
-
-        std::vector<std::string>* vec2;
         int sais = A.size();
+        std::vector<std::string>* vec2 = new std::vector<std::string>(sais-k+1);
         std::string kmero;
 
-        for (int i=0; sais-k; i++){
+        for (int i=0; i <= sais-k; i++){
             kmero = A.substr(i,k);
-            vec2 -> push_back(kmero);
+            vec2->at(i) = kmero;
         }
         vec = vec2;
 }

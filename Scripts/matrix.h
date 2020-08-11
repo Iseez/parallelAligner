@@ -1,8 +1,8 @@
 //
 // Created by amber on 05/08/20.
 //
-#include <cstring>
-#include <cstdio>
+#include <string>
+#include <stdio.h>
 #include <iostream>
 #include <vector>
 

@@ -6,7 +6,11 @@ int main(int argc, char const *argv[]) {
   double len = objFasta.length();
   objFasta.getReads();
   for(int i = 0;i<len;i++)
-    cout << objFasta.reads->at(i) << endl;
+    printf("%s\n", objFasta.reads->at(i).c_str());
+  matrix objMatrix;
+  string a = "abcdef";
+  objMatrix.veckm(a,3);
+  
   std::cin.get();
   return 0;
 }
