@@ -13,6 +13,7 @@ double fasta::length(){
     while(getline(file,data,'>')){
         counter++;
     }
+    counter--;
     noReads =  counter;
     return counter;
 }
@@ -28,11 +29,10 @@ void fasta::getReads(){
         continue;
     if(data[0] == '>') {
       if(!id.empty())
-        //cout << seq<< endl;
-        reads->at(indx) = seq;
-        id = data.substr(1);
-        indx++;
-        seq.clear();
+        {reads->at(indx) = seq;
+        indx++;}
+      id = data.substr(1);
+      seq.clear();
     }
     else {
       seq += data;
@@ -40,6 +40,4 @@ void fasta::getReads(){
   }
   if(!id.empty())
     reads->at(indx) = seq;
-    //cout << seq << endl;
-    //reads->push_back(seq);
 }
