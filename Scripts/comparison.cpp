@@ -82,6 +82,8 @@ float comparison::kmdist(std::string A, std::string B,int k){
   if(A.size()<B.size()){
     l = A.size();}
   else{l = B.size();}
+  delete str1.vec;
+  delete str2.vec;
   d -= m/(l-k+1);
   return d;
 }
