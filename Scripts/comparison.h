@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <string>
+#include "matrix.h"
 
 #ifndef COMPARISION_COMPARISON_H
 #define COMPARISION_COMPARISON_H
@@ -17,6 +19,7 @@ public:
     comparison();
     ~comparison();
     double compare(std::vector<std::string>,std::vector<std::string>);
+    float kmdist(std::string A,std::string B,int k);
 };
 
 

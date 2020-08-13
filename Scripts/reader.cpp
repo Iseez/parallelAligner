@@ -19,6 +19,7 @@ double fasta::length(){
 }
 void fasta::getReads(){
   reads = new vector<string>(noReads);
+  headers =  new vector<string>(noReads);
   ifstream file(fileName.c_str());
   stringstream buffer;
   buffer << file.rdbuf();
@@ -30,6 +31,7 @@ void fasta::getReads(){
     if(data[0] == '>') {
       if(!id.empty())
         {reads->at(indx) = seq;
+        headers->at(indx) = id;
         indx++;}
       id = data.substr(1);
       seq.clear();
@@ -38,6 +40,8 @@ void fasta::getReads(){
       seq += data;
     }
   }
-  if(!id.empty())
+  if(!id.empty()){
     reads->at(indx) = seq;
+    headers->at(indx) = id;
+  }
 }

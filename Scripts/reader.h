@@ -16,6 +16,7 @@ public:
   double length();
   void getReads();
   vector<string>* reads;
+  vector<string>* headers;
 private:
   string fileName;
   double noReads = 0;
