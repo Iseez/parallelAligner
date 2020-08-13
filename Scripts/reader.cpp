@@ -10,10 +10,9 @@ double fasta::length(){
     double counter = 0;
     ifstream file(fileName.c_str());
     string data;
-    while(getline(file,data,'>')){
-        counter++;
+    while(getline(file,data)){
+        if(data[0] == '>')counter++;
     }
-    counter--;
     noReads =  counter;
     return counter;
 }
