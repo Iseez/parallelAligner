@@ -3,7 +3,7 @@
 #include <time.h>
 
 int main(int argc, char const *argv[]) {
-  string file = "/home/iseez/Documents/Paralelo/alignment/Data/prueba100.fasta";//argv[1];
+  string file = "/home/iseez/Documents/Paralelo/alignment/Data/prueba500.fasta";//argv[1];
   int K = 4;//atoi(argv[2]);
   fasta objFasta(file);
   double len = objFasta.length();
@@ -15,8 +15,6 @@ int main(int argc, char const *argv[]) {
   }
   objFasta.getReads();
   comparison objComp;
-  //float kd = objComp.kmdist(objFasta.reads->at(0),objFasta.reads->at(1),K);
-  //float kd;
   clock_t startS = clock();
   for(int i = 0;i < len;i++){
     for(int j = i +1; j < len; j++){

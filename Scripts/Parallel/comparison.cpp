@@ -33,19 +33,6 @@ double comparison::compare(std::vector<std::string> v1 , std::vector<std::string
     //COnfirmación del sort
     vector<string> vec1 = move(alphabaticallySort(v1));
     vector<string> vec2 = move(alphabaticallySort(v2));
-    /*
-    //Vector 1 con sort
-    for(int i =0; i<vec1.size();i++){
-        printf("%s ",vec1[i].c_str());
-    }
-
-    printf("\n");
-
-    //Vector 2 con sort
-    for(int i =0; i<vec2.size();i++){
-        printf("%s ",vec2[i].c_str());
-    }
-    printf("\n");*/
     int i = 0,j = 0;
     double k = 0;
 
@@ -60,13 +47,9 @@ double comparison::compare(std::vector<std::string> v1 , std::vector<std::string
                 i++;
             }else{
                 j++;
-                    }
+            }
         }
-
-
     }
-    //printf("\n");
-    //printf("%f", k);
     return k;
 
 }

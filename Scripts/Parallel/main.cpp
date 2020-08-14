@@ -1,10 +1,12 @@
 #include "reader.h"
 #include "comparison.h"
 #include <time.h>
+#include <omp.h>
 
 int main(int argc, char const *argv[]) {
-  string file = "/home/iseez/Documents/Paralelo/alignment/Data/prueba100.fasta";//argv[1];
-  int K = 4;//atoi(argv[2]);
+  omp_set_num_threads(16);
+  string file = argv[1];
+  int K = atoi(argv[2]);
   fasta objFasta(file);
   double len = objFasta.length();
   float** mat = new float*[int(len)];
@@ -15,10 +17,9 @@ int main(int argc, char const *argv[]) {
   }
   objFasta.getReads();
   comparison objComp;
-  //float kd = objComp.kmdist(objFasta.reads->at(0),objFasta.reads->at(1),K);
-  //float kd;
   clock_t startS = clock();
-  for(int i = 0;i < len;i++){
+  #pragma omp parallel for shared(mat,len)
+  for(int i = 0;i<int(len);i++){
     for(int j = i +1; j < len; j++){
       mat[i][j] = objComp.kmdist(objFasta.reads->at(i),objFasta.reads->at(j),K);
     }
