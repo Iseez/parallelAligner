@@ -19,7 +19,7 @@ int main(int argc, char const *argv[]) {
   comparison objComp;
   int j;
   double startS = omp_get_wtime();
-  #pragma omp parallel for default(none) private(j) shared(mat,len,objFasta,K,objComp)
+  #pragma omp parallel for private(j) shared(mat,len)
   for(int i = 0;i<int(len);i++){
     for(j = i +1; j < len; j++){
       mat[i][j] = objComp.kmdist(objFasta.reads->at(i),objFasta.reads->at(j),K);
