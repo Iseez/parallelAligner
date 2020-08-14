@@ -3,8 +3,8 @@
 #include <time.h>
 
 int main(int argc, char const *argv[]) {
-  string file = "/home/iseez/Documents/Paralelo/alignment/Data/prueba500.fasta";//argv[1];
-  int K = 4;//atoi(argv[2]);
+  string file = argv[1];
+  int K = atoi(argv[2]);
   fasta objFasta(file);
   double len = objFasta.length();
   float** mat = new float*[int(len)];
