@@ -17,15 +17,16 @@ int main(int argc, char const *argv[]) {
   }
   objFasta.getReads();
   comparison objComp;
-  clock_t startS = clock();
-  #pragma omp parallel for shared(mat,len)
+  int j;
+  double startS = omp_get_wtime();
+  #pragma omp parallel for default(none) private(j) shared(mat,len,objFasta,K,objComp)
   for(int i = 0;i<int(len);i++){
-    for(int j = i +1; j < len; j++){
+    for(j = i +1; j < len; j++){
       mat[i][j] = objComp.kmdist(objFasta.reads->at(i),objFasta.reads->at(j),K);
     }
   }
-  clock_t endS = clock();
-  printf("Elapsed Time from serial implementation:%f seconds\n", double(endS-startS)/double (CLOCKS_PER_SEC));
+  double endS = omp_get_wtime();
+  printf("Elapsed Time from serial implementation:%f seconds\n", double(endS-startS));
   std::cin.get();
   return 0;
 }
