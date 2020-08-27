@@ -16,6 +16,7 @@ public:
   double length();
   void getReads();
   vector<string>* reads;
+  vector<const char*> h_reads;
   vector<string>* headers;
 private:
   string fileName;

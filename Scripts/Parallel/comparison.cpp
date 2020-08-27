@@ -12,20 +12,11 @@ comparison::~comparison() {
 }
 
 bool mycomp(string a, string b){
-    //returns 1 if string a is alphabetically
-    //less than string b
-    //quite similar to strcmp operation
     return a<b;
 }
 
 vector<string> alphabaticallySort(vector<string> a){
-    int n=a.size();
-    //mycomp function is the defined function which
-    //sorts the strings in alphabatical order
     sort(a.begin(),a.end(),mycomp);
-    for(int i =0; i<a.size();i++){
-        //printf("%s ",a[i].c_str());
-    }
     return a;
 }
 
