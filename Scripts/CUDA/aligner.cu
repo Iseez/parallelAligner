@@ -80,6 +80,7 @@ __device__ void alphsort(char* arr,int size,int k){
       }
     }
   }
+  free(tmp2);free(tmp1);
   /*
   if (l >= r){return;}
   char* pivot;
@@ -135,15 +136,16 @@ __device__ double aligner::compare(char* v1 , char* v2,int* k){
     }
     mm = cmpr(tmp1,tmp2,dk);
     if(mm == 2){
-      i+=3;
-      j+=3;
+      i+=dk;
+      j+=dk;
       res++;
     }
     else{
-        if (mm==0){i+=3;}
-        else{j+=3;}
+        if (mm==0){i+=dk;}
+        else{j+=dk;}
     }
   }
+  free(tmp1);free(tmp2);
   return res;
 }
 /*  //COnfirmación del sort
@@ -183,11 +185,13 @@ __device__ float aligner::kmdist(char* A, char* B,int* k){
   v2 = (char*)malloc((len2-dk+1)*dk*sizeof(char));
   aligner::veckm(A,v1,dk);
   aligner::veckm(B,v2,dk);
+  printf("%s\n",v1);
   m = aligner::compare(v1,v2,k);
   if(len1<len2){
     l = len1;}
   else{l = len2;}
   d -= m/(l-dk+1);
+  free(v1);free(v2);
   return d;
 }
 __device__ void aligner::veckm(char *A,char *a,int k) {

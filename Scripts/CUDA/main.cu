@@ -2,14 +2,15 @@
 #include <helper_cuda.h>
 #include <time.h>
 //__global__ void kernel(float* MAT,char* a,char* b,int *k){
-__global__ void kernel(float* MAT,char** a,int *k){
-  int index = threadIdx.x + (blockIdx.x * blockDim.x);
-  float ff = aligner::kmdist(a[0],a[0],k);
-  printf("%f\n", ff);
-  MAT[index] = index;
+__global__ void kernel(float* MAT,char** a,int *k,double *len){
+  int col = blockIdx.y*blockDim.y+threadIdx.y;
+  int row = blockIdx.x*blockDim.x+threadIdx.x;
+  if(col>row){
+    MAT[row*int(*len)+col] = aligner::kmdist(a[row],a[col],k);
+  }
 }
 //aligner::compare(ex1,ex2,m);
-void compare(dev_array<float> MAT,vector<float> HMAT,long size,double len,char* r[],int k);
+void compare(float* MAT,float* HMAT,double size,double len,char* r[],int k);
 unsigned long vecsize(double f);
 int main(int argc, char const *argv[]) {
   string file = argv[1];
@@ -17,10 +18,21 @@ int main(int argc, char const *argv[]) {
   aligner objAl(file);
   double len = objAl.length();
   objAl.getReads();
-  unsigned long size = vecsize(len);
-  vector<float> h_mat(size);
-  dev_array<float> d_mat(size);
+  double size = len*len;
+  //vector<float> h_mat(size);
+  float* h_mat;
+  h_mat = (float*)malloc(int(size*sizeof(float)));
+  //dev_array<float> d_mat(size);
+  float* d_mat;
+  checkCudaErrors(cudaMalloc((void**)&d_mat,int(size*sizeof(float))));
+  checkCudaErrors(cudaMemcpy(d_mat,h_mat,int(size*sizeof(float)),cudaMemcpyHostToDevice));
   compare(d_mat,h_mat,size,len,objAl.h_reads,K);
+  for(int i = 0;i<int(len);i++){
+    for(int j = 0;j<(len);j++){
+      printf("%f  ", h_mat[i*int(len)+j]);
+    }
+    printf("\n");
+  }
   return 0;
 }
 unsigned long vecsize(double f){
@@ -29,7 +41,7 @@ unsigned long vecsize(double f){
   return s;
 }
 //Call to the global function and make everything
-void compare(dev_array<float> MAT,vector<float> HMAT,long size,double len,char* r[],int k){
+void compare(float* MAT,float* HMAT,double size,double len,char* r[],int k){
   char **d_reads, **d_tmp;
   checkCudaErrors(cudaMalloc((void**)&d_reads,len*sizeof(char*)));
   d_tmp = (char**)malloc(len*sizeof(char*));
@@ -44,10 +56,17 @@ void compare(dev_array<float> MAT,vector<float> HMAT,long size,double len,char* 
   int* ptr_max_len = &k;
   checkCudaErrors(cudaMalloc((void**)&d_k,int(sizeof(int))));
   checkCudaErrors(cudaMemcpy(d_k,ptr_max_len,int(sizeof(int)),cudaMemcpyHostToDevice));
-  int threads = size;
-  int blocks = 1;
-  if(size > 1024){
-    blocks = ceil(size/1024);
+  double *d_len;
+  double* d_tmp_len = &len;
+  checkCudaErrors(cudaMalloc((void**)&d_len,int(sizeof(double))));
+  checkCudaErrors(cudaMemcpy(d_len,d_tmp_len,int(sizeof(double)),cudaMemcpyHostToDevice));
+  dim3 threadsPerBlock(len, len);
+  dim3 blocksPerGrid(1, 1);
+  if (len*len > 1024){
+    threadsPerBlock.x = 32;
+    threadsPerBlock.y = 32;
+    blocksPerGrid.x = ceil(double(len)/double(threadsPerBlock.x));
+    blocksPerGrid.y = ceil(double(len)/double(threadsPerBlock.y));
   }
   //para tomar el tiempo
   cudaEvent_t start, stop;
@@ -55,14 +74,15 @@ void compare(dev_array<float> MAT,vector<float> HMAT,long size,double len,char* 
   cudaEventCreate(&stop);
   //funcion paralela
   cudaEventRecord(start,0);
-  //kernel<<<1,1>>>(MAT.getData(),d_ex1,d_ex2,d_max_len);
-  kernel<<<1,1>>>(MAT.getData(),d_reads,d_k);
+  kernel<<<blocksPerGrid,threadsPerBlock>>>(MAT,d_reads,d_k,d_len);
   cudaDeviceSynchronize();
   cudaEventRecord(stop,0);
   cudaEventSynchronize(stop);
   float timer = 0;
   cudaEventElapsedTime(&timer,start,stop);
   cout << "Elapsed parallel time:" << timer/1000 << "seconds" << endl;
+  checkCudaErrors(cudaMemcpy(HMAT,MAT,int(size*sizeof(float)),cudaMemcpyDeviceToHost));
+  cudaDeviceSynchronize();
 }
 //MAT.get(&HMAT[0],size);
 /*
