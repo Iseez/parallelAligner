@@ -81,28 +81,6 @@ __device__ void alphsort(char* arr,int size,int k){
     }
   }
   free(tmp2);free(tmp1);
-  /*
-  if (l >= r){return;}
-  char* pivot;
-  pivot = (char*)malloc(k);
-  int n = 0;
-  for(int i = r*k;i<(r+1)*k;i++){
-    pivot[n] = arr[i];
-    n++;
-  }
-  int cnt = l;
-  char* tmp;
-  tmp = (char*)malloc(k);
-  for(int i = l*k;i<r*k;i+=k){
-    for(int j = 0;j<k;j++)
-      {tmp[j] = arr[j+i];}
-    if(minstr(tmp,pivot,k)){
-      aligner::swapp(arr,cnt,i,k);
-      cnt+=k;
-    }
-    alphsort(arr, l, cnt-(2*k),k);
-    alphsort(arr, cnt, r,k);
-  */
 }
 __device__ int cmpr(char* a,char* b,int k){
   for(int i =0;i<k;i++){
@@ -148,28 +126,6 @@ __device__ double aligner::compare(char* v1 , char* v2,int* k){
   free(tmp1);free(tmp2);
   return res;
 }
-/*  //COnfirmación del sort
-  vector<string> res1(v1.size());
-  vector<string> res2(v2.size());
-  alphabaticallySort(v1,res1);
-  alphabaticallySort(v2,res2);
-  int i = 0,j = 0;
-  double k = 0;
-  while(i<res1.size() && j<res2.size()){
-    if (res1[i] == res2[j]){
-      i++;
-      j++;
-      k++;
-    }else{
-      if(res1[i]<res2[j]){
-        i++;
-      }else{
-        j++;
-      }
-    }
-  }
-  *res = k;
-}*/
 __device__ float aligner::kmdist(char* A, char* B,int* k){
   float d = 1;
   int dk = *k;
@@ -185,7 +141,6 @@ __device__ float aligner::kmdist(char* A, char* B,int* k){
   v2 = (char*)malloc((len2-dk+1)*dk*sizeof(char));
   aligner::veckm(A,v1,dk);
   aligner::veckm(B,v2,dk);
-  printf("%s\n",v1);
   m = aligner::compare(v1,v2,k);
   if(len1<len2){
     l = len1;}
